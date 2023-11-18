@@ -20,8 +20,6 @@ class CriarTabelaTotemConfigs extends Migration
             $table->integer('largura_index');
             $table->integer('altura_detail');
             $table->integer('largura_detail');
-            $table->string('tipo_totem');
-            $table->integer('access_code');
             $table->timestamps();
             $table->softDeletes();
 

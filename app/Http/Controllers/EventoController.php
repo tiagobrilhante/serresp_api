@@ -71,6 +71,8 @@ class EventoController extends Controller
         $evento->ano = $request['ano'];
         $evento->nome = $request['nome'];
         $evento->legenda = $request['legenda'];
+        $evento->destaque = $request['destaque'];
+        $evento->ordem_exibicao = $request['ordem_exibicao'];
         $evento->saibamais = $saibamais;
         $evento->save();
 
@@ -92,7 +94,6 @@ class EventoController extends Controller
             'responsavel' => Auth::user()->nome,
             'user_id' => Auth::user()->id
         ]);
-
 
 
         return response()

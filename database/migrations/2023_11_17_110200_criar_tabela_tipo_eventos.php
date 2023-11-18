@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddBgFieldsToTotemConfigsTable extends Migration
+class CriarTabelaTipoEventos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class AddBgFieldsToTotemConfigsTable extends Migration
      */
     public function up()
     {
-        Schema::table('totem_configs', function (Blueprint $table) {
-            $table->string('bg_img')->nullable();
-            $table->string('bg_color')->nullable();
+        Schema::create('tipo_eventos', function (Blueprint $table) {
+            $table->id();
+            $table->string('tipo');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -26,8 +28,6 @@ class AddBgFieldsToTotemConfigsTable extends Migration
      */
     public function down()
     {
-        Schema::table('totem_configs', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('tipo_eventos');
     }
 }

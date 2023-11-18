@@ -11,6 +11,7 @@ abstract  class BaseController
     //teste
     protected $classe;
 
+
     public function index(Request $request)
     {
        return $this->classe::paginate($request->per_page);

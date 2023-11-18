@@ -17,16 +17,11 @@ class TotemConfigSeeder extends Seeder
 
         DB::table('totem_configs')->insert([
                 [
-                    'nome_totem' => 'Teste de TOTEM 1',
+                    'nome_totem' => 'Ser Responsável',
                     'altura_index' => 250,
                     'largura_index' => 450,
                     'altura_detail' => 500,
                     'largura_detail' => 700,
-                    'tipo_totem' => 'normal',
-                    'access_code' => 123456,
-                    'bg_img' => 'bg/bg.jpg',
-                    'bg_color' => '#cccccc'
-
                 ]
             ]
         );

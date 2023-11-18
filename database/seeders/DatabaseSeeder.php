@@ -16,8 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             TotemConfigSeeder::class,
-            AssuntosSeeder::class,
-            ImasgemsSeeder::class,
+            TipoEventosSeeder::class,
             EventosSeeder::class
         ]);
     }
