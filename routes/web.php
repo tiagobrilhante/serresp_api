@@ -65,6 +65,14 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
         $router->put('{id}', 'AssuntoController@update');
     });
 
+    // Tipo de Evento
+    $router->group(['prefix' => 'tipoevento'], function () use ($router) {
+        $router->get('', 'EventoTipoController@index');
+        $router->post('', 'EventoTipoController@store');
+        $router->delete('{id}', 'EventoTipoController@destroy');
+        $router->put('{id}', 'EventoTipoController@update');
+    });
+
     // Imagem
     $router->group(['prefix' => 'img'], function () use ($router) {
 

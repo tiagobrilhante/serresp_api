@@ -21,5 +21,14 @@ class Evento extends Model
 
     }
 
+    public function tipoEvento()
+    {
+
+        return $this->belongsTo(EventoTipo::class, 'tipo_evento_id');
+
+    }
+
+
+
 }
 

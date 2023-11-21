@@ -21,10 +21,19 @@ class EventoController extends Controller
 
     public function store(Request $request)
     {
+
         $eventoTeste = 0;
 
         if ($request['imagem'] === null) {
             $eventoTeste = 1;
+        }
+
+        if ($request['destaque'] === 'true') {
+            $destaque = 1;
+            $ordem = $request['ordem_exibicao'];
+        } else {
+            $destaque = 0;
+            $ordem = null;
         }
 
         if ($request['imagem'] === 'undefined') {
@@ -71,8 +80,9 @@ class EventoController extends Controller
         $evento->ano = $request['ano'];
         $evento->nome = $request['nome'];
         $evento->legenda = $request['legenda'];
-        $evento->destaque = $request['destaque'];
-        $evento->ordem_exibicao = $request['ordem_exibicao'];
+        $evento->destaque = $destaque;
+        $evento->ordem_exibicao = $ordem;
+        $evento->tipo_evento_id = $request['tipo_evento_id'];
         $evento->saibamais = $saibamais;
         $evento->save();
 
