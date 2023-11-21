@@ -150,6 +150,15 @@ class EventoController extends Controller
         $requestAno = (int)$requestAno;
 
 
+        if ($request['destaque'] === 'true') {
+            $destaque = 1;
+            $ordem = $request['ordem_exibicao'];
+        } else {
+            $destaque = 0;
+            $ordem = null;
+        }
+
+
         if ($evento->mes !== null && $evento->dia !== null) {
             $dataEventoFormatadoAntigo = $evento->dia . '/' . $evento->mes . '/' . $evento->ano;
         }
@@ -182,6 +191,17 @@ class EventoController extends Controller
         if ($evento->ano !== $request['nome']) {
             $evento->nome = $request['nome'];
         }
+
+        if ($evento->destaque !== $destaque) {
+            $evento->destaque = $destaque;
+        }
+
+        if ($evento->tipo_evento_id !== $request['tipo_evento_id']) {
+            $evento->tipo_evento_id = $request['tipo_evento_id'];
+        }
+
+        $evento->ordem_exibicao = $request['ordem_exibicao'];
+
         if ($evento->legenda !== $request['legenda']) {
             $evento->legenda = $request['legenda'];
         }
