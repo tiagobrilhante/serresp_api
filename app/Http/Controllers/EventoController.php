@@ -14,10 +14,9 @@ class EventoController extends Controller
 {
     public function index()
     {
-        return Evento::all()->load('imagensAdicionais');
+        return Evento::all()->load('imagensAdicionais', 'tipoEvento');
 
     }
-
 
     public function store(Request $request)
     {
@@ -270,10 +269,7 @@ class EventoController extends Controller
 
     public function destroy($id)
     {
-
-
         $evento = Evento::find($id);
-
 
         Historico::create([
             'evento' => 'Foi excluído o evento : ' . $evento->nome,
@@ -330,9 +326,9 @@ class EventoController extends Controller
 
         $anosExistentes = array_unique($anosExistentes);
 
-        sort($anosExistentes);
+        rsort($anosExistentes);
 
-        $itensPorPag = 8;
+        $itensPorPag = 4;
 
         $totalPaginas = ceil(count($anosExistentes) / $itensPorPag);
         $arrayDeArrays = [];
@@ -354,6 +350,7 @@ class EventoController extends Controller
 
             $juca = ['ano' => $arrayDeArrays[0][$j], 'eventos' => $eventos, 'imagem' => $imagem];
             $montagemRetorno[] = $juca;
+
         }
 
         $temProxPag = false;
@@ -370,7 +367,7 @@ class EventoController extends Controller
     {
 
         // Obter todos os eventos
-        $todosEventos = Evento::all()->load('imagensAdicionais');
+        $todosEventos = Evento::all()->load('imagensAdicionais','tipoEvento');
 
         // Agrupar eventos por ano usando a Collection
         $anosExistentes = [];
@@ -381,9 +378,9 @@ class EventoController extends Controller
 
         $anosExistentes = array_unique($anosExistentes);
 
-        sort($anosExistentes);
+        rsort($anosExistentes);
 
-        $itensPorPag = 8;
+        $itensPorPag = 4;
 
         $totalPaginas = ceil(count($anosExistentes) / $itensPorPag);
         $arrayDeArrays = [];
@@ -396,7 +393,7 @@ class EventoController extends Controller
 
         $montagemRetorno = [];
 
-        for ($j = 0; $j < count($arrayDeArrays[$pag - 1]); $j++) {
+        for ($j = 0, $jMax = count($arrayDeArrays[$pag - 1]); $j < $jMax; $j++) {
 
             $imagem = $this->retornaBanner($arrayDeArrays[$pag - 1][$j]);
 
@@ -415,7 +412,6 @@ class EventoController extends Controller
 
     }
 
-
     public function retornaBanner($ano)
     {
         $eventos = Evento::where('ano', $ano)->get();
@@ -431,6 +427,11 @@ class EventoController extends Controller
         } else {
             return 'nada';
         }
+    }
+
+    public function retornaBannerDestaque($id)
+    {
+        return Evento::find($id)->imagem;
     }
 
     public function addimgadicional(Request $request)
@@ -488,5 +489,12 @@ class EventoController extends Controller
             return response()->json('', 204);
         }
 
+    }
+
+    public function pegaPorPagDestaque(Request $request)
+    {
+        $destaquesPaginados = Evento::where('destaque', true)->orderBy('ordem_exibicao')->paginate(6);
+        $destaquesPaginados->load('imagensAdicionais', 'tipoEvento');
+        return response()->json($destaquesPaginados);
     }
 }
